@@ -1,0 +1,22 @@
+{
+  "name": "cloudflare-reverse-proxy",
+  "version": "1.0.0",
+  "description": "A simple reverse proxy using Cloudflare Workers",
+  "main": "workers.js",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "login": "wrangler auth login"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "reverse-proxy",
+    "cors"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

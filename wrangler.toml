@@ -1,0 +1,12 @@
+name = "reverse-proxy"
+main = "workers.js"
+compatibility_date = "2023-12-01"
+
+# 可选：设置环境变量
+# [vars]
+# TARGET_URL = "https://example.com"
+
+# 可选：设置自定义域名
+# [[routes]]
+# pattern = "proxy.yourdomain.com/*"
+# zone_name = "yourdomain.com"
