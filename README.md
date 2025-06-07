@@ -14,7 +14,7 @@
 
 ### 方法一：使用 Deploy Button
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/你的用户名/reverseproxy)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Nothingness-Void/reverseproxy)
 
 ### 方法二：使用 Wrangler CLI
 
@@ -30,7 +30,7 @@ wrangler auth login
 
 3. 克隆仓库：
 ```bash
-git clone https://github.com/你的用户名/reverseproxy.git
+git clone https://github.com/Nothingness-Void/reverseproxy.git
 cd reverseproxy
 ```
 
