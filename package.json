@@ -3,17 +3,7 @@
   "version": "1.0.0",
   "description": "Cloudflare Workers 工具包 - 包含反向代理和文本存储服务",
   "main": "workers.js",  "scripts": {
-    "deploy": "wrangler deploy",
-    "deploy:proxy": "wrangler deploy --config wrangler.toml",
-    "deploy:storage": "wrangler deploy --config wrangler-text-storage.toml",
-    "deploy:toolkit": "wrangler deploy --config wrangler-index.toml",
-    "deploy:all": "npm run deploy:proxy && npm run deploy:storage && npm run deploy:toolkit",
-    "dev": "wrangler dev",
-    "dev:proxy": "wrangler dev --config wrangler.toml",
-    "dev:storage": "wrangler dev --config wrangler-text-storage.toml",
-    "dev:toolkit": "wrangler dev --config wrangler-index.toml",
-    "login": "wrangler auth login",
-    "kv:create": "wrangler kv:namespace create TEXT_STORAGE"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "cloudflare",
@@ -24,10 +14,6 @@
     "cors",
     "github-raw",
     "pastebin"
-  ],
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "wrangler": "^3.0.0"
-  }
+  ],  "author": "",
+  "license": "MIT"
 }

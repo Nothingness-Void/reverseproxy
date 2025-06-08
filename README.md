@@ -24,13 +24,17 @@
 ## 🎯 项目结构
 
 ```
-├── workers.js              # 反向代理服务
-├── text-storage.js         # 文本存储服务
-├── index.js               # 工具包入口（可选）
-├── wrangler.toml          # 反向代理配置
-├── wrangler-text-storage.toml  # 文本存储配置
-├── TEXT-STORAGE-DEPLOY.md # 文本存储部署指南
-└── README.md              # 项目说明
+├── workers.js                    # 反向代理服务
+├── text-storage.js              # 文本存储服务
+├── index.js                     # 工具包入口（可选）
+├── wrangler.toml                # 反向代理配置
+├── wrangler-text-storage.toml   # 文本存储配置
+├── wrangler-index.toml          # 工具包入口配置
+├── CLOUDFLARE-DEPLOY.md         # Cloudflare 部署指南
+├── TEXT-STORAGE-DEPLOY.md       # 文本存储部署指南
+├── EXAMPLES.md                  # 使用示例文档
+├── package.json                 # 项目配置
+└── README.md                    # 项目说明
 ```
 
 ## 🚀 快速开始
@@ -66,28 +70,23 @@ wrangler kv:namespace create "TEXT_STORAGE"
 wrangler deploy --config wrangler-text-storage.toml
 ```
 
-详细说明请参考：[📝 文本存储部署指南](TEXT-STORAGE-DEPLOY.md)
+详细说明请参考：[🚀 Cloudflare 一键部署指南](CLOUDFLARE-DEPLOY.md)
 
-### 方法二：部署完整工具包
+### 方法二：Fork 仓库后一键部署
 
-```bash
-# 克隆仓库
-git clone https://github.com/Nothingness-Void/reverseproxy.git
-cd reverseproxy
+1. Fork 此仓库到你的 GitHub 账户
+2. 在 Cloudflare Dashboard 中创建 Workers 服务
+3. 连接你的 GitHub 仓库进行自动部署
 
-# 安装依赖
-npm install
+### 方法三：使用 Cloudflare Pages（推荐）
 
-# 登录 Cloudflare
-wrangler auth login
+1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)
+2. 进入 "Pages" 页面
+3. 点击 "连接到 Git"
+4. 选择你 Fork 的仓库
+5. 配置构建设置后部署
 
-# 部署工具包入口（可选）
-wrangler deploy --config wrangler-index.toml
-
-# 分别部署各个工具
-wrangler deploy --config wrangler.toml              # 反向代理
-wrangler deploy --config wrangler-text-storage.toml # 文本存储
-```
+完整部署指南：[📖 查看详细部署说明](CLOUDFLARE-DEPLOY.md)
 
 ## 📖 使用说明
 

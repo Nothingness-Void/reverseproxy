@@ -196,50 +196,6 @@ https://your-toolkit.workers.dev
 - `[TEXT-RETRIEVED]` - 文本获取成功
 - `[TEXT-DELETED]` - 文本删除成功
 
-## 🔧 开发和测试
-
-### 本地开发
-
-```bash
-# 反向代理本地开发
-npm run dev:proxy
-
-# 文本存储本地开发
-npm run dev:storage
-
-# 工具包入口本地开发
-npm run dev:toolkit
-```
-
-### 测试脚本
-
-```bash
-#!/bin/bash
-# test.sh - 测试脚本
-
-STORAGE_URL="https://your-storage.workers.dev"
-
-echo "测试文本存储服务..."
-
-# 存储测试
-echo "1. 存储文本..."
-RESPONSE=$(curl -s -X POST "$STORAGE_URL/api/store" \
-  -H "Content-Type: application/json" \
-  -d '{"content": "Test content", "id": "test-123"}')
-
-echo "响应: $RESPONSE"
-
-# 获取测试
-echo "2. 获取文本..."
-curl -s "$STORAGE_URL/raw/test-123"
-
-# 删除测试
-echo "3. 删除文本..."
-curl -s -X DELETE "$STORAGE_URL/api/delete/test-123"
-
-echo "测试完成！"
-```
-
 ## 🚀 生产环境最佳实践
 
 ### 安全配置
@@ -266,11 +222,10 @@ const clientIP = request.headers.get('CF-Connecting-IP');
 
 ### 备份策略
 
-定期备份 KV 存储数据：
-```bash
-# 导出所有数据
-wrangler kv:bulk get --namespace-id YOUR_NAMESPACE_ID
-```
+通过 Cloudflare Dashboard 定期备份 KV 存储数据：
+1. 进入 Workers & Pages > KV
+2. 选择你的 namespace
+3. 导出所有键值对
 
 ---
 
