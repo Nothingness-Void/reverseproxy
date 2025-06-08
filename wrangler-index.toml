@@ -1,0 +1,21 @@
+name = "workers-toolkit"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+# 环境变量配置
+[vars]
+# DEFAULT_TOOL = "text-storage"
+# SERVICE_NAME = "Cloudflare Workers 工具包"
+
+# 开发环境配置
+[env.staging]
+name = "workers-toolkit-staging"
+
+# 路由配置示例（请根据您的域名调整）
+# routes = [
+#   "toolkit.your-domain.com/*"
+# ]
+
+# Worker 限制配置
+# [limits]
+# cpu_ms = 50

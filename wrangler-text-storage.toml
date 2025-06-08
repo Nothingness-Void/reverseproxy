@@ -1,0 +1,27 @@
+name = "text-storage"
+main = "text-storage.js"
+compatibility_date = "2024-01-01"
+
+# KV 命名空间配置
+[[kv_namespaces]]
+binding = "TEXT_STORAGE"
+preview_id = ""
+id = ""
+
+# 环境变量示例（可选）
+[vars]
+# SERVICE_NAME = "CloudFlare-Text-Storage"
+# MAX_TEXT_SIZE = 10485760
+
+# 开发环境配置
+[env.staging]
+name = "text-storage-staging"
+
+# 路由配置示例（请根据您的域名调整）
+# routes = [
+#   "text-storage.your-domain.com/*"
+# ]
+
+# Worker 限制配置
+# [limits]
+# cpu_ms = 50

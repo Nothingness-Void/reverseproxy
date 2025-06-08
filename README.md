@@ -1,75 +1,162 @@
-# Cloudflare Workers 反向代理
+# Cloudflare Workers 工具包
 
-一个简单而强大的 Cloudflare Workers 反向代理服务，支持 CORS 和多种 HTTP 方法。
+一个功能强大的 Cloudflare Workers 工具集合，包含多个实用工具：
 
-## 功能特性
+## 🛠️ 可用工具
 
+### 1. 🌐 反向代理服务
+快速代理任意网站的强大工具
 - 🚀 快速部署到 Cloudflare Workers
 - 🌐 支持 CORS 跨域请求
 - 📡 支持 GET、HEAD、OPTIONS 方法
 - 🛡️ 错误处理和安全头部管理
 - ⚡ 全球边缘网络加速
 
-## 一键部署
+### 2. 📝 文本存储服务
+类似 GitHub RAW 的文本存储和分享功能
+- 📝 类似 GitHub RAW 的文本存储功能
+- 🔗 简洁的访问链接（如：`/raw/abc123`）
+- 📊 支持多种文本格式（JSON、HTML、CSS、JS 等）
+- 🗃️ 基于 Cloudflare KV 的持久化存储
+- 🔄 完整的 RESTful API（增删查改）
+- 📏 最大支持 10MB 文本文件
 
-### 方法一：使用 Deploy Button
+## 🎯 项目结构
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Nothingness-Void/reverseproxy)
-
-### 方法二：使用 Wrangler CLI
-
-1. 安装 Wrangler CLI：
-```bash
-npm install -g wrangler
+```
+├── workers.js              # 反向代理服务
+├── text-storage.js         # 文本存储服务
+├── index.js               # 工具包入口（可选）
+├── wrangler.toml          # 反向代理配置
+├── wrangler-text-storage.toml  # 文本存储配置
+├── TEXT-STORAGE-DEPLOY.md # 文本存储部署指南
+└── README.md              # 项目说明
 ```
 
-2. 登录 Cloudflare：
-```bash
-wrangler auth login
+## 🚀 快速开始
+
+### 方法一：选择单个工具部署
+
+#### 部署反向代理服务
+
+[![Deploy Reverse Proxy](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Nothingness-Void/reverseproxy)
+
+**配置说明：**
+```javascript
+// 修改 workers.js 中的目标URL
+const TARGET_URL = 'https://your-target-domain.com';
 ```
 
-3. 克隆仓库：
+#### 部署文本存储服务
+
+1. 克隆仓库：
 ```bash
 git clone https://github.com/Nothingness-Void/reverseproxy.git
 cd reverseproxy
 ```
 
-4. 修改配置文件 `wrangler.toml`（如果没有则创建）：
-```toml
-name = "my-reverse-proxy"
-main = "workers.js"
-compatibility_date = "2023-12-01"
-```
-
-5. 部署：
+2. 创建 KV 存储：
 ```bash
-wrangler deploy
+wrangler kv:namespace create "TEXT_STORAGE"
 ```
 
-## 配置说明
-
-在部署前，请修改 `workers.js` 文件中的 `TARGET_URL` 变量：
-
-```javascript
-const TARGET_URL = 'https://your-target-domain.com';
+3. 更新配置并部署：
+```bash
+# 在 wrangler-text-storage.toml 中填入 KV namespace ID
+wrangler deploy --config wrangler-text-storage.toml
 ```
 
-将 `https://your-target-domain.com` 替换为你要代理的目标网站。
+详细说明请参考：[📝 文本存储部署指南](TEXT-STORAGE-DEPLOY.md)
 
-## 使用方法
+### 方法二：部署完整工具包
+
+```bash
+# 克隆仓库
+git clone https://github.com/Nothingness-Void/reverseproxy.git
+cd reverseproxy
+
+# 安装依赖
+npm install
+
+# 登录 Cloudflare
+wrangler auth login
+
+# 部署工具包入口（可选）
+wrangler deploy --config wrangler-index.toml
+
+# 分别部署各个工具
+wrangler deploy --config wrangler.toml              # 反向代理
+wrangler deploy --config wrangler-text-storage.toml # 文本存储
+```
+
+## 📖 使用说明
+
+### 反向代理服务
 
 部署成功后，你的反向代理将在以下地址可用：
 ```
 https://your-worker-name.your-subdomain.workers.dev
 ```
 
-所有请求将被转发到你配置的目标URL。
+配置说明：
+```javascript
+// 修改 workers.js 中的 TARGET_URL 变量
+const TARGET_URL = 'https://your-target-domain.com';
+```
 
-## 环境变量
+### 文本存储服务
 
-你可以在 Cloudflare Workers 控制台中设置环境变量：
+#### API 使用示例
 
+**存储文本：**
+```bash
+curl -X POST "https://your-text-storage.workers.dev/api/store" \
+  -H "Content-Type: application/json" \
+  -d '{"content": "Hello, World!"}'
+```
+
+**获取文本：**
+```bash
+curl "https://your-text-storage.workers.dev/raw/{text-id}"
+```
+
+**删除文本：**
+```bash
+curl -X DELETE "https://your-text-storage.workers.dev/api/delete/{text-id}"
+```
+
+更多详细说明请参考：[📝 文本存储部署指南](TEXT-STORAGE-DEPLOY.md)
+
+## 🔧 环境变量
+
+### 反向代理服务
 - `TARGET_URL`: 目标代理地址（可选，如果不使用代码中的硬编码值）
+
+### 文本存储服务
+- `SERVICE_NAME`: 服务名称（可选）
+- `MAX_TEXT_SIZE`: 最大文本大小限制（可选，默认 10MB）
+
+## 🛡️ 安全建议
+
+1. **反向代理服务**：
+   - 生产环境中考虑限制 `Access-Control-Allow-Origin`
+   - 监控代理请求，防止滥用
+   - 考虑添加请求频率限制
+
+2. **文本存储服务**：
+   - 不要存储敏感信息
+   - 考虑实施访问控制
+   - 定期清理不需要的数据
+
+## 📊 监控和日志
+
+所有服务都包含详细的日志记录：
+- `[PROXY-START]` - 代理请求开始
+- `[PROXY-SUCCESS]` - 代理请求成功
+- `[TEXT-STORED]` - 文本存储成功
+- `[TEXT-RETRIEVED]` - 文本获取成功
+
+在 Cloudflare Dashboard 的 Workers 页面可以查看实时日志。
 
 ## 许可证
 
